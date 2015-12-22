@@ -28,16 +28,16 @@ sudo systemctl restart NetworkManager
 sudo pacman -S --noconfirm fish
 sudo pacman -S --noconfirm p7zip
 sudo pacman -S --noconfirm openssh
-sudo pacman -S --noconfirm mariadb
 sudo pacman -S --noconfirm alsa-utils
-sudo pacman -S --noconfirm {vim-python3,bpython,python-pip,phantomjs}
+sudo pacman -S --noconfirm {vim-python3,bpython,python-pip}
 
 # Python packages
 sudo pip install --upgrade pip
 sudo pip install --upgrade Flask
+sudo pip install --upgrade bpython
 sudo pip install --upgrade selenium
+sudo pip install --upgrade virtualenv
 sudo pip install --upgrade beautifulsoup4
-sudo pip install --upgrade mysql-connector-python --allow-external mysql-connector-python
 
 # chromedriver
 wget https://raw.githubusercontent.com/K-Guan/private/master/chromedriver
@@ -46,6 +46,7 @@ sudo chmod 755 /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver 
 
 # Fish Shell
+sudo chsh -s /usr/bin/fish
 mkdir -p ~/.config/fish/completions
 wget https://raw.githubusercontent.com/d42/fish-pip-completion/master/pip.fish -O ~/.config/fish/completions/pip.fish
 cat >> ~/.config/fish/config.fish << EOF
@@ -113,21 +114,3 @@ git clone --depth=1 https://github.com/zagortenay333/new-minty
 mkdir -p ~/.themes
 mv new-minty/New-Minty ~/.themes
 rm -rf new-minty
-
-# mariadb
-sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
-sudo systemctl start mysqld
-sudo systemctl enable mysqld
-
-sudo mysql_secure_installation
-sudo systemctl restart mysqld
-
-sudo mysql_upgrade -u root -p
-
-reset
-echo "To create a new user for mysql, please use the following code:"
-echo "
-mysql -u root -p
-
-CREATE USER 'kevin'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON *.* TO 'kevin'@'localhost' WITH GRANT OPTION;"
