@@ -38,6 +38,7 @@ sudo pip install --upgrade bpython
 sudo pip install --upgrade selenium
 sudo pip install --upgrade virtualenv
 sudo pip install --upgrade beautifulsoup4
+sudo pip install --upgrade pip-autoremove
 
 # chromedriver
 wget https://raw.githubusercontent.com/K-Guan/private/master/chromedriver
