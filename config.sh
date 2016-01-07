@@ -59,8 +59,8 @@ set -x LESS_TERMCAP_so (printf "\033[01;44;33m")
 set -x LESS_TERMCAP_ue (printf "\033[0m")  
 set -x LESS_TERMCAP_us (printf "\033[01;32m")  
 
-export VISUAL=vim
-export EDITOR="$VISUAL"
+export VISUAL="vim"
+export EDITOR="vim"
 EOF
 
 echo 'fish_update_completions' | fish
