@@ -16,10 +16,10 @@ wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts
 sudo mv hosts /etc/hosts
 
 # DNS
-sudo rm /etc/resolv.conf
-sudo echo '# OpenDNS servers' >> /etc/resolv.conf
-sudo echo 'nameserver 208.67.222.222' >> /etc/resolv.conf
-sudo echo 'nameserver 208.67.220.220' >> /etc/resolv.conf
+echo '# OpenDNS servers' >> /tmp/resolv.conf
+echo 'nameserver 208.67.222.222' >> /tmp/resolv.conf
+echo 'nameserver 208.67.220.220' >> /tmp/resolv.conf
+sudo mv /tmp/resolv.conf /etc/resolv.conf
 
 sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
