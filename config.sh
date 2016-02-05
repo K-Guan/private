@@ -5,29 +5,51 @@ if [ ${UID} == 0 ];then
 	exit
 fi
 
-cd /tmp
+
 # google-chrome
-wget https://raw.githubusercontent.com/K-Guan/silver/master/silver
-python silver -ic --noconfirm google-chrome
-rm silver
+cd /tmp
+wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/google-chrome.tar.gz'
+tar xzf google-chrome.tar.gz
+rm google-chrome.tar.gz
+
+cd google-chrome 
+makepkg -sricC --noconfirm
+cd ..
+
+rm -rf google-chrome
+cd ~/private
+
 
 # hosts
-wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts
-sudo mv hosts /etc/hosts
+cat /etc/hosts >> /tmp/hosts
+echo '72.52.9.107 privateinternetaccess.com' >> /tmp/hosts
+sudo mv /tmp/hosts /etc/hosts
 
 # DNS
-echo '# OpenDNS servers' >> /tmp/resolv.conf
-echo 'nameserver 208.67.222.222' >> /tmp/resolv.conf
-echo 'nameserver 208.67.220.220' >> /tmp/resolv.conf
+echo '# PIA servers' >> /tmp/resolv.conf
+echo 'nameserver 209.222.18.222' >> /tmp/resolv.conf
+echo 'nameserver 209.222.18.218' >> /tmp/resolv.conf
 sudo mv /tmp/resolv.conf /etc/resolv.conf
 
 sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
 
+# PIA
+sudo pacman -S --noconfirm openvpn
+
+cd private-internet-access-vpn
+makepkg -sricC --noconfirm
+
+sudo touch /etc/private-internet-access/login.conf
+chmod 0600 /etc/private-internet-access/login.conf
+chown root:root /etc/private-internet-access/login.conf
+
+sudo pia -a
+cd ~/private
+
 # other softwares
 sudo pacman -S --noconfirm fish
 sudo pacman -S --noconfirm p7zip
-sudo pacman -S --noconfirm openssh
 sudo pacman -S --noconfirm alsa-utils
 sudo pacman -S --noconfirm {vim-python3,bpython,python-pip}
 
@@ -45,7 +67,6 @@ sudo chmod 755 /usr/bin/chromedriver
 sudo chown root:root /usr/bin/chromedriver 
 
 # Fish Shell
-sudo chsh -s /usr/bin/fish
 mkdir -p ~/.config/fish/completions
 wget https://raw.githubusercontent.com/d42/fish-pip-completion/master/pip.fish -O ~/.config/fish/completions/pip.fish
 cat >> ~/.config/fish/config.fish << EOF
@@ -113,3 +134,10 @@ git clone --depth=1 https://github.com/zagortenay333/new-minty
 mkdir -p ~/.themes
 mv new-minty/New-Minty ~/.themes
 rm -rf new-minty
+
+# set fish and vim
+sudo chsh -s /usr/bin/fish
+chsh -s /usr/bin/fish
+
+sudo cp -R ~/.vim /root
+sudo chown -R root:root /root/.vim
