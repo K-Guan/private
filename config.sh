@@ -1,10 +1,56 @@
 #!/bin/bash
 
+if [ $(getconf LONG_BIT) = 64 ];then
+    sed -i '93d' /etc/pacman.conf > /dev/null 2>&1
+    sed -i '92a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf > /dev/null 2>&1
+    sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf  
+fi
+
+sed -i 's/#Color/Color/g' /etc/pacman.conf
+sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
+sed -i 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf
+
+sudo pacman -Syy 
+sudo pacman -S --noconfirm {wget,git,openssh,fish}
+
+usrnm='kevin'
+read -s -p "Password: " usrpasswd
+
+useradd -m -G wheel -s /usr/bin/fish ${usrnm}
+echo "${usrnm}:${usrpasswd}" | chpasswd
+
+if [ -n "${usrnm}" ];then
+    sed -i "73a ${usrnm} ALL=(ALL) ALL" /etc/sudoers
+fi
+clear
+
+
+cat >> 'continue.sh' << EOF
+#!/bin/bash
+
 if [ ${UID} == 0 ];then
 	echo "Don't run this script as root."
 	exit
 fi
 
+# font, xorg
+sudo pacman -S --noconfirm wqy-microhei
+sudo pacman -S --noconfirm xorg-{server,xinit}
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
+sed -i '\$d' ~/.xinitrc
+
+# desktop
+sudo pacman -S --noconfirm cinnamon
+sudo pacman -S --noconfirm {gnome-screenshot,gnome-terminal}
+echo 'exec cinnamon-session' >> ~/.xinitrc
+
+# NetworkManager
+sudo pacman -S --noconfirm networkmanager
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+sudo pacman -S --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
+sudo pacman -S --noconfirm mpv
+echo "sudo pacman -S --noconfirm xf86-input-synaptics
 
 # google-chrome
 cd /tmp
@@ -48,7 +94,6 @@ sudo pia -a
 cd ~/private
 
 # other softwares
-sudo pacman -S --noconfirm fish
 sudo pacman -S --noconfirm p7zip
 sudo pacman -S --noconfirm alsa-utils
 sudo pacman -S --noconfirm {vim-python3,bpython,python-pip}
@@ -69,7 +114,8 @@ sudo chown root:root /usr/bin/chromedriver
 # Fish Shell
 mkdir -p ~/.config/fish/completions
 wget https://raw.githubusercontent.com/d42/fish-pip-completion/master/pip.fish -O ~/.config/fish/completions/pip.fish
-cat >> ~/.config/fish/config.fish << EOF
+
+cat >> ~/.config/fish/config.fish << FEOF
 set -x LESS_TERMCAP_mb (printf "\033[01;31m")  
 set -x LESS_TERMCAP_md (printf "\033[01;31m")  
 set -x LESS_TERMCAP_me (printf "\033[0m")  
@@ -80,16 +126,16 @@ set -x LESS_TERMCAP_us (printf "\033[01;32m")
 
 export VISUAL="vim"
 export EDITOR="vim"
-EOF
+FEOF
 
 echo 'fish_update_completions' | fish
 
 # bpython
 mkdir -p /home/kevin/.config/bpython/
-cat >> /home/kevin/.config/bpython/config << EOF
+cat >> /home/kevin/.config/bpython/config << BEOF
 [general]
 editor = vim
-EOF
+BEOF
 
 # powerline for vim-airline
 wget https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf
@@ -137,7 +183,10 @@ rm -rf new-minty
 
 # set fish and vim
 sudo chsh -s /usr/bin/fish
-chsh -s /usr/bin/fish
 
 sudo cp -R ~/.vim /root
 sudo chown -R root:root /root/.vim
+EOF
+
+echo 'Please logout, and run command: '
+echo 'bash ~/continue.sh'
