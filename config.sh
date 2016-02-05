@@ -11,7 +11,7 @@ sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
 sed -i 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf
 
 sudo pacman -Syy 
-sudo pacman -S --noconfirm {wget,git,openssh,fish}
+sudo pacman -S --needed --noconfirm {wget,git,openssh,fish}
 
 usrnm='kevin'
 read -s -p "Password: " usrpasswd
@@ -34,37 +34,24 @@ if [ ${UID} == 0 ];then
 fi
 
 # font, xorg
-sudo pacman -S --noconfirm wqy-microhei
-sudo pacman -S --noconfirm xorg-{server,xinit}
+sudo pacman -S --needed --noconfirm wqy-microhei
+sudo pacman -S --needed --noconfirm xorg-{server,xinit}
 cp /etc/X11/xinit/xinitrc ~/.xinitrc
 sed -i '\$d' ~/.xinitrc
 
 # desktop
-sudo pacman -S --noconfirm cinnamon
-sudo pacman -S --noconfirm {gnome-screenshot,gnome-terminal}
+sudo pacman -S --needed --noconfirm cinnamon
+sudo pacman -S --needed --noconfirm {gnome-screenshot,gnome-terminal}
+sed -i '$ d' ~/.xinitrc
 echo 'exec cinnamon-session' >> ~/.xinitrc
 
 # NetworkManager
-sudo pacman -S --noconfirm networkmanager
+sudo pacman -S --needed --noconfirm networkmanager
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
-sudo pacman -S --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
-sudo pacman -S --noconfirm mpv
-echo "sudo pacman -S --noconfirm xf86-input-synaptics
-
-# google-chrome
-cd /tmp
-wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/google-chrome.tar.gz'
-tar xzf google-chrome.tar.gz
-rm google-chrome.tar.gz
-
-cd google-chrome 
-makepkg -sricC --noconfirm
-cd ..
-
-rm -rf google-chrome
-cd ~/private
-
+sudo pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
+sudo pacman -S --needed --noconfirm mpv
+sudo pacman -S --needed --noconfirm xf86-input-synaptics
 
 # hosts
 cat /etc/hosts >> /tmp/hosts
@@ -81,22 +68,36 @@ sudo chattr +i /etc/resolv.conf
 sudo systemctl restart NetworkManager
 
 # PIA
-sudo pacman -S --noconfirm openvpn
+sudo pacman -S --needed --noconfirm openvpn
 
 cd private-internet-access-vpn
 makepkg -sricC --noconfirm
 
-sudo touch /etc/private-internet-access/login.conf
-chmod 0600 /etc/private-internet-access/login.conf
-chown root:root /etc/private-internet-access/login.conf
+sudo vi /etc/private-internet-access/login.conf
+sudo chmod 0600 /etc/private-internet-access/login.conf
+sudo chown root:root /etc/private-internet-access/login.conf
 
 sudo pia -a
 cd ~/private
 
+# google-chrome
+cd /tmp
+wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/google-chrome.tar.gz'
+tar xzf google-chrome.tar.gz
+rm google-chrome.tar.gz
+
+cd google-chrome 
+makepkg -sricC --noconfirm
+cd ..
+
+rm -rf google-chrome
+cd ~/private
+
+
 # other softwares
-sudo pacman -S --noconfirm p7zip
-sudo pacman -S --noconfirm alsa-utils
-sudo pacman -S --noconfirm {vim-python3,bpython,python-pip}
+sudo pacman -S --needed --noconfirm p7zip
+sudo pacman -S --needed --noconfirm alsa-utils
+sudo pacman -S --needed --noconfirm {vim-python3,bpython,python-pip}
 
 # Python packages
 sudo pip install --upgrade pip
@@ -162,6 +163,7 @@ wget https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathog
 # vim plugins
 mkdir ~/.vim/colors
 wget https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim -O ~/.vim/colors/molokai.vim
+wget https://raw.githubusercontent.com/vim-airline/vim-airline-themes/master/autoload/airline/themes/serene.vim -O ~/.vim/bundle/vim-airline/autoload/airline/themes/serene.vim
 
 cd ~/.vim/bundle
 git clone --depth=1 https://github.com/terryma/vim-multiple-cursors
@@ -188,5 +190,8 @@ sudo cp -R ~/.vim /root
 sudo chown -R root:root /root/.vim
 EOF
 
-echo 'Please logout, and run command: '
+chmod 755 'continue.sh' 
+mv 'continue.sh' /home/kevin
+
+echo 'Please logout and login as "kevin", and run command: '
 echo 'bash ~/continue.sh'
