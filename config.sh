@@ -107,8 +107,7 @@ sudo pip install --upgrade beautifulsoup4
 sudo pip install --upgrade pip-autoremove
 
 # chromedriver
-wget https://raw.githubusercontent.com/K-Guan/private/master/chromedriver
-sudo mv chromedriver /usr/bin/chromedriver 
+sudo cp ~/private/chromedriver /usr/bin/chromedriver 
 sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
 
