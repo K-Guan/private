@@ -29,11 +29,15 @@ pacman -S --needed --noconfirm wqy-microhei
 pacman -S --needed --noconfirm xorg-{server,xinit}
 pacman -S --needed --noconfirm cinnamon
 
-# useful tools
+# other softwares
 pacman -S --needed --noconfirm {gnome-{screenshot,terminal}
 pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
 pacman -S --needed --noconfirm mpv
 pacman -S --needed --noconfirm xf86-input-synaptics
+pacman -S --needed --noconfirm p7zip
+pacman -S --needed --noconfirm phantomjs
+pacman -S --needed --noconfirm alsa-utils
+pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
 # networkmanager
 pacman -S --needed --noconfirm networkmanager
@@ -50,11 +54,6 @@ echo 'nameserver 209.222.18.218' >> /etc/resolv.conf
 
 chattr +i /etc/resolv.conf
 systemctl restart NetworkManager
-
-# other softwares
-pacman -S --needed --noconfirm p7zip
-pacman -S --needed --noconfirm alsa-utils
-pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
 # Python packages
 pip install --upgrade pip
