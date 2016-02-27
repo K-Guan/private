@@ -132,6 +132,8 @@ set -x LESS_TERMCAP_us (printf "\033[01;32m")
 
 export VISUAL="vim"
 export EDITOR="vim"
+
+export LESS=' -R '
 FEOF
 
 echo 'fish_update_completions' | fish
