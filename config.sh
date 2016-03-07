@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'Server = http://muug.ca/mirror/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+
 if [ $(getconf LONG_BIT) = 64 ];then
     sed -i '93d' /etc/pacman.conf > /dev/null 2>&1
     sed -i '92a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf > /dev/null 2>&1
