@@ -95,12 +95,6 @@ if [ ${UID} == 0 ];then
 	exit
 fi
 
-# xinitrc
-cp /etc/X11/xinit/xinitrc ~/.xinitrc
-
-sed -i '$ d' ~/.xinitrc
-echo 'exec cinnamon-session' >> ~/.xinitrc
-
 # PIA
 sudo pacman -S --needed --noconfirm openvpn
 
@@ -131,70 +125,6 @@ sudo cp ~/private/chromedriver /usr/bin/chromedriver
 sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
 
-# Fish Shell
-mkdir -p ~/.config/fish/completions
-wget 'https://raw.githubusercontent.com/d42/fish-pip-completion/master/pip.fish' -O ~/.config/fish/completions/pip.fish
-
-cat >> ~/.config/fish/config.fish << FEOF
-set -x LESS_TERMCAP_mb (printf "\033[01;31m")  
-set -x LESS_TERMCAP_md (printf "\033[01;31m")  
-set -x LESS_TERMCAP_me (printf "\033[0m")  
-set -x LESS_TERMCAP_se (printf "\033[0m")  
-set -x LESS_TERMCAP_so (printf "\033[01;44;33m")  
-set -x LESS_TERMCAP_ue (printf "\033[0m")  
-set -x LESS_TERMCAP_us (printf "\033[01;32m")  
-
-export VISUAL="vim"
-export EDITOR="vim"
-
-export LESS=' -R '
-FEOF
-
-echo 'fish_update_completions' | fish
-
-
-# bpython
-mkdir -p /home/kevin/.config/bpython/
-cat >> /home/kevin/.config/bpython/config << BEOF
-[general]
-editor = vim
-BEOF
-
-# git config
-git config --global user.email "KevinGuan.gm@gmail.com"
-git config --global user.name "Kevin Guan"
-git config --global push.default "simple"
-git config --global user.signingkey "941C6829"
-git config --global core.editor "vim"
-
-# vimrc
-cp ~/private/vimrc ~/.vimrc
-
-# bundle
-mkdir -p ~/.vim/autoload ~/.vim/bundle
-wget 'https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim' -O  ~/.vim/autoload/pathogen.vim
-
-# vim plugins
-mkdir ~/.vim/colors
-wget 'https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim' -O ~/.vim/colors/molokai.vim
-wget 'https://raw.githubusercontent.com/vim-airline/vim-airline-themes/master/autoload/airline/themes/serene.vim' -O ~/.vim/bundle/vim-airline/autoload/airline/themes/serene.vim
-
-git clone --depth=1 'https://github.com/terryma/vim-multiple-cursors' ~/.vim/bundle/vim-multiple-cursors
-git clone --depth=1 'https://github.com/tpope/vim-fugitive' ~/.vim/bundle/vim-fugitive
-git clone --depth=1 'https://github.com/easymotion/vim-easymotion' ~/.vim/bundle/vim-signature
-git clone --depth=1 'https://github.com/kshenoy/vim-signature' ~/.vim/bundle/vim-signature
-git clone --depth=1 'https://github.com/klen/python-mode' ~/.vim/bundle/python-mode
-git clone --depth=1 'https://github.com/ConradIrwin/vim-bracketed-paste' ~/.vim/bundle/vim-bracketed-paste
-git clone --depth=1 'https://github.com/kien/rainbow_parentheses.vim' ~/.vim/bundle/rainbow_parentheses.vim
-git clone --depth=1 'https://github.com/bling/vim-airline' ~/.vim/bundle/vim-airline
-git clone --depth=1 'https://github.com/Glench/Vim-Jinja2-Syntax' ~/.vim/bundle/Vim-Jinja2-Syntax
-
-# cinnamon theme
-mkdir ~/.themes
-git clone --depth=1 'https://github.com/zagortenay333/new-minty' ~/.themes/new-minty
-mv ~/.themes/new-minty/New-Minty ~/.themes/New-Minty
-rm -rf ~/.themes/new-minty
-
 # set fish and vim
 sudo chsh -s /usr/bin/fish
 
@@ -205,5 +135,5 @@ EOF
 chmod 755 'continue.sh' 
 mv 'continue.sh' '/home/kevin/continue.sh'
 
-echo 'Please logout and login as "kevin", and run command: '
+echo 'Please logout and login as "kevin", and run the below command: '
 echo 'bash ~/continue.sh'
