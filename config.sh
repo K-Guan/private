@@ -1,6 +1,18 @@
 #!/bin/bash
 
-echo 'Server = http://muug.ca/mirror/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
+cat << EOF > /etc/pacman.d/mirrorlist
+Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+Server = http://mirror.adminbannok.com/archlinux/$repo/os/$arch
+Server = http://mirrors.abscission.net/archlinux/$repo/os/$arch
+Server = http://mirror.kaminski.io/archlinux/$repo/os/$arch
+Server = http://arch.apt-get.eu/$repo/os/$arch
+Server = http://mirror.its.dal.ca/archlinux/$repo/os/$arch
+Server = http://mirrors.acm.wpi.edu/archlinux/$repo/os/$arch
+Server = http://ftp.osuosl.org/pub/archlinux/$repo/os/$arch
+Server = http://mirror.cs.pitt.edu/archlinux/$repo/os/$arch
+Server = http://mirror.flipez.de/archlinux/$repo/os/$arch
+EOF
+
 
 if [ $(getconf LONG_BIT) = 64 ];then
     sed -i '93d' /etc/pacman.conf > /dev/null 2>&1
