@@ -27,3 +27,6 @@ While this link may answer the question, it is better to include the essential p
 
 ###[A] This answer should be an edit to the question
 Please use the edit link on your question to add additional information. The Post Answer button should be used only for complete answers to the question.
+
+###[A] This answer is a code-only answer
+[Stack Overflow](//$SITEURL$) accepts **code-only answer** like this, but it isn't *very* help for others. Please [edit] your answer and explain *How does your code work*. Sometimes, also *Why doesn't OP's code work*.
