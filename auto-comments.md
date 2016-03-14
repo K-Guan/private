@@ -30,3 +30,6 @@ Please use the edit link on your question to add additional information. The Pos
 
 ###[A] This answer is a code-only answer
 [Stack Overflow](//$SITEURL$) accepts **code-only answer** like this, but it isn't *very* help for others. Please [edit] your answer and explain *How does your code work*. Sometimes, also *Why doesn't OP's code work*.
+
+###[A] Ask the OP for acceptation
+If you think this answer is helpful, please remember mark this answer as accepted. Please see: [How does accepting an answer work?](//meta.stackexchange.com/questions/5234)
