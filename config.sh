@@ -86,6 +86,10 @@ cp /usr/share/fonts/OTF/10-powerline-symbols.conf /etc/fonts/conf.d/10-powerline
 wget 'https://raw.githubusercontent.com/K-Guan/tedit/master/tedit' -O /usr/bin/tedit
 chmod 755 /usr/bin/tedit
 
+# realpath
+wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/realpath' -O /usr/bin/realpath
+chmod 755 /usr/bin/tedit
+
 
 cat >> 'continue.sh' << EOF
 #!/bin/bash
