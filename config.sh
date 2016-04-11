@@ -92,12 +92,13 @@ chmod 755 /usr/bin/tedit
 
 
 cat >> 'continue.sh' << EOF
-#!/bin/bash
+#!/usr/bin/fish
 
-if [ ${UID} == 0 ];then
-	echo "Don't run this script as root."
-	exit
-fi
+if test $USER = root
+    echo "Do not run this script as root"
+    exit
+end
+
 
 # PIA
 sudo pacman -S --needed --noconfirm openvpn
@@ -109,7 +110,7 @@ sudo vi /etc/private-internet-access/login.conf
 sudo chmod 0600 /etc/private-internet-access/login.conf
 sudo chown root:root /etc/private-internet-access/login.conf
 
-sudo pia -a
+sudo openvpn /etc/openvpn/Singapore.conf &
 
 # google-chrome
 cd /tmp
@@ -122,7 +123,7 @@ makepkg -sricC --noconfirm
 cd /tmp 
 
 rm -rf google-chrome
-
+sudo kill (job -p)
 
 # chromedriver
 sudo cp ~/private/chromedriver /usr/bin/chromedriver 
@@ -140,4 +141,4 @@ chmod 755 'continue.sh'
 mv 'continue.sh' '/home/kevin/continue.sh'
 
 echo 'Please logout and login as "kevin", and run the below command: '
-echo 'bash ~/continue.sh'
+echo 'fish ~/continue.sh'
