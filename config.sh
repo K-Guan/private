@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat << EOF > /etc/pacman.d/mirrorlist
+cat > /etc/pacman.d/mirrorlist << EOF
 Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
 Server = http://mirror.adminbannok.com/archlinux/$repo/os/$arch
 Server = http://mirrors.abscission.net/archlinux/$repo/os/$arch
@@ -14,93 +14,105 @@ Server = http://mirror.flipez.de/archlinux/$repo/os/$arch
 EOF
 
 
+# enable x86_64 packages if the system supports
 if [ $(getconf LONG_BIT) = 64 ];then
     sed -i '93d' /etc/pacman.conf > /dev/null 2>&1
     sed -i '92a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf > /dev/null 2>&1
     sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf  
 fi
 
+# change the setting of `pacman`
 sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
 sed -i 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf
 
+# refresh the new mirrors and install some important packages
 sudo pacman -Syy 
 sudo pacman -S --needed --noconfirm wget git openssh fish
 
+# create the new user
 usrnm='kevin'
 read -s -p "Password: " usrpasswd
 
 useradd -m -G wheel -s /usr/bin/fish ${usrnm}
 echo "${usrnm}:${usrpasswd}" | chpasswd
 
+# add the new user to `sudoers` list
 if [ -n "${usrnm}" ];then
     sed -i "73a ${usrnm} ALL=(ALL) ALL" /etc/sudoers
 fi
 clear
 
-# font and desktop
+# install font and desktop
 pacman -S --needed --noconfirm wqy-microhei
 pacman -S --needed --noconfirm xorg-{server,xinit}
 pacman -S --needed --noconfirm cinnamon
 
-# other softwares
-pacman -S --needed --noconfirm {gnome-{screenshot,terminal}
-pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
-pacman -S --needed --noconfirm mpv
+# install other packages
 pacman -S --needed --noconfirm xf86-input-synaptics
+pacman -S --needed --noconfirm gnome-{screenshot,terminal}
+pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
 pacman -S --needed --noconfirm p7zip
-pacman -S --needed --noconfirm phantomjs
+pacman -S --needed --noconfirm mpv
+pacman -S --needed --noconfirm easytag
 pacman -S --needed --noconfirm alsa-utils
+pacman -S --needed --noconfirm nodejs
+pacman -S --needed --noconfirm phantomjs
 pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
-# networkmanager
+# install and enable Network Manager
 pacman -S --needed --noconfirm networkmanager
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
-# hosts
+# change the hosts
 echo '72.52.9.107 privateinternetaccess.com' >> /etc/hosts
 
-# DNS
-echo '# PIA servers' > /etc/resolv.conf
-echo 'nameserver 209.222.18.222' >> /etc/resolv.conf
-echo 'nameserver 209.222.18.218' >> /etc/resolv.conf
+# change, lock the DNS and restart Network Manager
+cat > /etc/resolv.conf << EOF
+# PIA servers
+nameserver 209.222.18.222
+nameserver 209.222.18.218
+EOF
 
 chattr +i /etc/resolv.conf
 systemctl restart NetworkManager
 
-# Python packages
+# install some python packages
 pip install --upgrade pip
 pip install --upgrade Flask
+pip install --upgrade Pillow
 pip install --upgrade selenium
 pip install --upgrade beautifulsoup4
 pip install --upgrade pip-autoremove
 
-# powerline for vim-airline
+# download some fonts of powerline for vim-airline
 wget 'https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf' -O /usr/share/fonts/OTF/10-powerline-symbols.conf
 wget 'https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf' -O /usr/share/fonts/OTF/PowerlineSymbols.otf
 
 cp /usr/share/fonts/OTF/10-powerline-symbols.conf /etc/fonts/conf.d/10-powerline-symbols.conf
 
-# tedit
+# install tedit
 wget 'https://raw.githubusercontent.com/K-Guan/tedit/master/tedit' -O /usr/bin/tedit
 chmod 755 /usr/bin/tedit
 
-# realpath
+# install realpath
 wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/realpath' -O /usr/bin/realpath
-chmod 755 /usr/bin/tedit
+chmod 755 /usr/bin/realpath
 
 
-cat >> 'continue.sh' << EOF
+# create `continue.fish`
+cat > 'continue.fish' << EOF
 #!/usr/bin/fish
 
+# exit if the user is "root"
 if test $USER = root
     echo "Do not run this script as root"
     exit
 end
 
 
-# PIA
+# install PIA
 sudo pacman -S --needed --noconfirm openvpn
 
 cd ~/private/private-internet-access-vpn
@@ -112,7 +124,7 @@ sudo chown root:root /etc/private-internet-access/login.conf
 
 sudo openvpn /etc/openvpn/Singapore.conf &
 
-# google-chrome
+# install Google Chrome
 cd /tmp
 wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/google-chrome.tar.gz'
 tar xzf google-chrome.tar.gz
@@ -125,20 +137,19 @@ cd /tmp
 rm -rf google-chrome
 sudo kill (job -p)
 
-# chromedriver
+# copy chromedriver to PATH
 sudo cp ~/private/chromedriver /usr/bin/chromedriver 
 sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
 
-# set fish and vim
-sudo chsh -s /usr/bin/fish
-
+# set vim for root
+sudo cp ~/.vimrc /root
 sudo cp -R ~/.vim /root
 sudo chown -R root:root /root/.vim
 EOF
 
-chmod 755 'continue.sh' 
-mv 'continue.sh' '/home/kevin/continue.sh'
+chmod 755 'continue.fish' 
+mv 'continue.fish' '/home/kevin/continue.fish'
 
 echo 'Please logout and login as "kevin", and run the below command: '
-echo 'fish ~/continue.sh'
+echo 'fish ~/continue.fish'
