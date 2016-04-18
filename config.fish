@@ -40,6 +40,11 @@ pacman -S --needed --noconfirm nodejs
 pacman -S --needed --noconfirm phantomjs
 pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
+# install and enable ntpd
+pacman -S --needed --noconfirm ntpd
+sudo  systemctl enable ntp
+sudo  systemctl start ntpd
+
 # install and enable Network Manager
 pacman -S --needed --noconfirm networkmanager
 systemctl enable NetworkManager
