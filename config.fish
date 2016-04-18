@@ -14,7 +14,7 @@ sudo pacman -S --needed --noconfirm wget git openssh fish
 set usrnm 'kevin'
 read usrpasswd
 
-useradd -m -G wheel -s /usr/bin/fish ${usrnm}
+useradd -m -G wheel -s /usr/bin/fish $usrnm
 echo "$usrnm:$usrpasswd" | chpasswd
 
 # add the new user to `sudoers` list
@@ -85,7 +85,7 @@ chmod 755 /usr/bin/realpath
 echo "
 #!/usr/bin/fish
 
-# exit if the user is "root"
+# exit if the user is 'root'
 if test $USER = root
     echo "Do not run this script as root"
     exit
@@ -103,6 +103,7 @@ sudo chmod 0600 /etc/private-internet-access/login.conf
 sudo chown root:root /etc/private-internet-access/login.conf
 
 sudo openvpn /etc/openvpn/Singapore.conf &
+sleep 15
 
 # install Google Chrome
 cd /tmp
