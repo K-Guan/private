@@ -14,17 +14,8 @@ Server = http://mirror.flipez.de/archlinux/$repo/os/$arch
 EOF
 
 
-# enable x86_64 packages if the system supports
-if [ $(getconf LONG_BIT) = 64 ];then
-    sed -i '93d' /etc/pacman.conf > /dev/null 2>&1
-    sed -i '92a Include = /etc/pacman.d/mirrorlist' /etc/pacman.conf > /dev/null 2>&1
-    sed -i 's/\#\[multilib\]/\[multilib\]/g' /etc/pacman.conf  
-fi
-
-# change the setting of `pacman`
-sed -i 's/#Color/Color/g' /etc/pacman.conf
-sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
-sed -i 's/#VerbosePkgLists/VerbosePkgLists/g' /etc/pacman.conf
+# copy `pacman.conf` to `/ect`
+cp pacman.conf /etc/pacman.conf
 
 # refresh the new mirrors and install some important packages
 sudo pacman -Syy 
@@ -51,6 +42,7 @@ pacman -S --needed --noconfirm cinnamon
 # install other packages
 pacman -S --needed --noconfirm xf86-input-synaptics
 pacman -S --needed --noconfirm pantheon-terminal
+pacman -S --needed --noconfirm guake
 pacman -S --needed --noconfirm gnome-screenshot
 pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
 pacman -S --needed --noconfirm p7zip
