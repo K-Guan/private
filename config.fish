@@ -1,18 +1,7 @@
-#!/bin/bash
+#!/bin/fish
 
-cat > /etc/pacman.d/mirrorlist << EOF
-Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
-Server = http://mirror.adminbannok.com/archlinux/$repo/os/$arch
-Server = http://mirrors.abscission.net/archlinux/$repo/os/$arch
-Server = http://mirror.kaminski.io/archlinux/$repo/os/$arch
-Server = http://arch.apt-get.eu/$repo/os/$arch
-Server = http://mirror.its.dal.ca/archlinux/$repo/os/$arch
-Server = http://mirrors.acm.wpi.edu/archlinux/$repo/os/$arch
-Server = http://ftp.osuosl.org/pub/archlinux/$repo/os/$arch
-Server = http://mirror.cs.pitt.edu/archlinux/$repo/os/$arch
-Server = http://mirror.flipez.de/archlinux/$repo/os/$arch
-EOF
-
+# copy `pacman.conf` to `/ect`
+cp mirrorlist /etc/pacman.d/mirrorlist
 
 # copy `pacman.conf` to `/ect`
 cp pacman.conf /etc/pacman.conf
@@ -22,16 +11,14 @@ sudo pacman -Syy
 sudo pacman -S --needed --noconfirm wget git openssh fish
 
 # create the new user
-usrnm='kevin'
-read -s -p "Password: " usrpasswd
+set usrnm 'kevin'
+read usrpasswd
 
 useradd -m -G wheel -s /usr/bin/fish ${usrnm}
-echo "${usrnm}:${usrpasswd}" | chpasswd
+echo "$usrnm:$usrpasswd" | chpasswd
 
 # add the new user to `sudoers` list
-if [ -n "${usrnm}" ];then
-    sed -i "73a ${usrnm} ALL=(ALL) ALL" /etc/sudoers
-fi
+sed -i "73a $usrnm ALL=(ALL) ALL" /etc/sudoers
 clear
 
 # install font and desktop
@@ -62,11 +49,11 @@ systemctl start NetworkManager
 echo '72.52.9.107 privateinternetaccess.com' >> /etc/hosts
 
 # change, lock the DNS and restart Network Manager
-cat > /etc/resolv.conf << EOF
+echo "
 # PIA servers
 nameserver 209.222.18.222
 nameserver 209.222.18.218
-EOF
+" > /etc/resolv.conf
 
 chattr +i /etc/resolv.conf
 systemctl restart NetworkManager
@@ -95,7 +82,7 @@ chmod 755 /usr/bin/realpath
 
 
 # create `continue.fish`
-cat > 'continue.fish' << EOF
+echo "
 #!/usr/bin/fish
 
 # exit if the user is "root"
@@ -139,10 +126,8 @@ sudo chown root:root /usr/bin/chromedriver
 sudo cp ~/.vimrc /root
 sudo cp -R ~/.vim /root
 sudo chown -R root:root /root/.vim
-EOF
+" > '/home/kevin/continue.fish'
+chmod 755 '/home/kevin/continue.fish' 
 
-chmod 755 'continue.fish' 
-mv 'continue.fish' '/home/kevin/continue.fish'
-
-echo 'Please logout and login as "kevin", and run the below command: '
-echo 'fish ~/continue.fish'
+echo 'Please logout and login as "kevin", and run the below command:'
+fish ~/continue.fish'

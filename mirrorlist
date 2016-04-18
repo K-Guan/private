@@ -1,0 +1,10 @@
+Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+Server = http://mirror.adminbannok.com/archlinux/$repo/os/$arch
+Server = http://mirrors.abscission.net/archlinux/$repo/os/$arch
+Server = http://mirror.kaminski.io/archlinux/$repo/os/$arch
+Server = http://arch.apt-get.eu/$repo/os/$arch
+Server = http://mirror.its.dal.ca/archlinux/$repo/os/$arch
+Server = http://mirrors.acm.wpi.edu/archlinux/$repo/os/$arch
+Server = http://ftp.osuosl.org/pub/archlinux/$repo/os/$arch
+Server = http://mirror.cs.pitt.edu/archlinux/$repo/os/$arch
+Server = http://mirror.flipez.de/archlinux/$repo/os/$arch
