@@ -12,6 +12,7 @@ sudo pacman -S --needed --noconfirm wget git openssh fish
 
 # create the new user
 set usrnm 'kevin'
+echo 'Please enter the password for kevin:'
 read usrpasswd
 
 useradd -m -G wheel -s /usr/bin/fish $usrnm
@@ -91,8 +92,8 @@ echo "
 #!/usr/bin/fish
 
 # exit if the user is 'root'
-if test $USER = root
-    echo "Do not run this script as root"
+if test \$USER = root
+    echo 'Do not run this script as root'
     exit
 end
 
@@ -128,12 +129,12 @@ sudo cp ~/private/chromedriver /usr/bin/chromedriver
 sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
 
-# set vim for root
+# config vim for root
 sudo cp ~/.vimrc /root
 sudo cp -R ~/.vim /root
 sudo chown -R root:root /root/.vim
 " > '/home/kevin/continue.fish'
 chmod 755 '/home/kevin/continue.fish' 
 
-echo 'Please logout and login as "kevin", and run the below command:'
-fish ~/continue.fish'
+echo "'Please logout and login as 'kevin', and run the below command:'
+fish ~/continue.fish'"
