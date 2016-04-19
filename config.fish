@@ -107,9 +107,12 @@ makepkg -sricC --noconfirm
 sudo vi /etc/private-internet-access/login.conf
 sudo chmod 0600 /etc/private-internet-access/login.conf
 sudo chown root:root /etc/private-internet-access/login.conf
+sudo pia -a
+sudo systemctl restart NetworkManager
 
-sudo openvpn /etc/openvpn/Singapore.conf &
-sleep 15
+echo 'Please start a PIA session in another terminal, and press any key to continue:'
+read -n 1
+
 
 # install Google Chrome
 cd /tmp
@@ -122,7 +125,6 @@ makepkg -sricC --noconfirm
 cd /tmp 
 
 rm -rf google-chrome
-sudo kill (job -p)
 
 # copy chromedriver to PATH
 sudo cp ~/private/chromedriver /usr/bin/chromedriver 
