@@ -101,7 +101,7 @@ end
 # install PIA
 sudo pacman -S --needed --noconfirm openvpn
 
-cd ~/private/private-internet-access-vpn
+cd ~/private/programs/private-internet-access-vpn
 makepkg -sricC --noconfirm
 
 sudo vi /etc/private-internet-access/login.conf
@@ -127,7 +127,7 @@ cd /tmp
 rm -rf google-chrome
 
 # copy chromedriver to PATH
-sudo cp ~/private/chromedriver /usr/bin/chromedriver 
+sudo cp ~/private/google_chrome/chromedriver /usr/bin/chromedriver 
 sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
 

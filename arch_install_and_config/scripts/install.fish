@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 # ask the user if we have already conneted to the Internet
-echo 'Have you already connected to the Internet? [Y/N]'
+echo 'Have you already connected to the Internet, changed the mirrors of pacman, etc.? [Y/N]'
 read -n 1 network
 
 while true
