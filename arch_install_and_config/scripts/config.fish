@@ -86,6 +86,10 @@ chmod 755 /usr/bin/tedit
 wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/realpath' -O /usr/bin/realpath
 chmod 755 /usr/bin/realpath
 
+# install lyrics_search
+wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyrics_search.py' -O /usr/bin/lyrics_search
+chmod 755 /usr/bin/lyrics_search
+
 
 # create `continue.fish`
 echo "
