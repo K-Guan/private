@@ -29,9 +29,9 @@ pacman -S --needed --noconfirm cinnamon
 
 # install other packages
 pacman -S --needed --noconfirm xf86-input-synaptics
-pacman -S --needed --noconfirm gnome-terminal
 pacman -S --needed --noconfirm guake
-pacman -S --needed --noconfirm gnome-screenshot
+pacman -S --needed --noconfirm gnome-terminal
+pacman -S --needed --noconfirm scrot
 pacman -S --needed --noconfirm fcitx-{im,qt5,googlepinyin,configtool}
 pacman -S --needed --noconfirm p7zip
 pacman -S --needed --noconfirm mpv
