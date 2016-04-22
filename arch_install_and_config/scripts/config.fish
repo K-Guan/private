@@ -87,7 +87,7 @@ wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/real
 chmod 755 /usr/bin/realpath
 
 # install lyrics_search
-wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyrics_search.py' -O /usr/bin/lyrics_search
+wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyrics_search' -O /usr/bin/lyrics_search
 chmod 755 /usr/bin/lyrics_search
 
 
