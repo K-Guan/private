@@ -1,24 +1,3 @@
-# Set these options in your config.fish (if you want to :])
-
-
-
-# Backward compatibility
-#
-# Note: Do not depend on these behavior. These can be removed in anytime by the
-# author in the name of code readability.
-if set -q theme_hide_hostname
-  # Existing $theme_hostname will always override $theme_hide_hostname
-  if not set -q theme_hostname
-    if [ "theme_hide_hostname" = "yes" ]
-      set -g theme_hostname never
-    end
-    if [ "theme_hide_hostname" = "no" ]
-      set -g theme_hostname always
-    end
-  end
-end
-
-
 #
 # Segments functions
 #
@@ -200,7 +179,7 @@ end
 
 function prompt_status -d "the symbols for root and background jobs, display the exit status if it's non zero"
     if [ $RETVAL -ne 0 ]
-      prompt_segment red yellow "$RETVAL"
+      prompt_segment 2f0000 ff0000 "$RETVAL"
     end
 
 
