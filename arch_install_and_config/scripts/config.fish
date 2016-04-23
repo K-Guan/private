@@ -139,7 +139,7 @@ cd /tmp
 rm -rf google-chrome
 
 # kill the PIA which's running in background
-sudo kill (jobs -p)
+sudo kill -9 (jobs -p)
 sleep 2
 
 
