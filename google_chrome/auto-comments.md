@@ -4,6 +4,9 @@ This does not provide an answer to the question. To critique or request clarific
 ###[A] This is commentary on another post, not an answer (can't comment)
 This does not provide an answer to the question. Once you have sufficient [reputation](//$SITEURL$/help/whats-reputation) you will be able to [comment on any post](//$SITEURL$//privileges/comment); instead, [provide answers that don't require clarification from the asker](//meta.stackexchange.com/questions/214173).
 
+###[A] This is commentary on another post, not an answer (can't comment) (to another answer)
+This does not provide an answer to the question. Once you have sufficient [reputation](//stackoverflow.com/help/whats-reputation) you will be able to [comment on any post](//stackoverflow.com//privileges/comment).
+
 ###[A] This is a “thank you” comment
 Please don't add "thank you" as an answer. Instead, vote up the answers that you find helpful.
 
