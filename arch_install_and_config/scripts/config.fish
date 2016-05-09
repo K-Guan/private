@@ -114,17 +114,9 @@ sudo chown root:root /etc/private-internet-access/login.conf
 sudo pia -a
 sudo systemctl restart NetworkManager
 
-# run PIA in the background and check if succeeded
-sudo openvpn /etc/openvpn/Singapore.conf > /tmp/pia_status &
-
-while true
-    if sudo grep -q 'Initialization Sequence Completed$' /tmp/pia_status
-        break
-    else
-        sleep 4
-    end
-end
-
+# enable and run PIA as a service
+sudo systemctl enable openvpn@Singapore.service
+sudo systemctl start openvpn@Singapore.service
 
 # install Google Chrome
 cd /tmp
@@ -137,11 +129,6 @@ makepkg -sricC --noconfirm
 cd /tmp 
 
 rm -rf google-chrome
-
-# kill the PIA which's running in background
-sudo kill -9 (jobs -p)
-sleep 2
-
 
 # copy chromedriver to PATH
 sudo cp ~/private/google_chrome/chromedriver /usr/bin/chromedriver 
