@@ -43,6 +43,11 @@ pacman -S --needed --noconfirm pavucontrol
 pacman -S --needed --noconfirm simplescreenrecorder
 pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
+pacman -S --needed --noconfirm mdk3
+pacman -S --needed --noconfirm nmap
+pacman -S --needed --noconfirm ettercap
+pacman -S --needed --noconfirm aircrack-ng
+
 # install and enable ntpd
 pacman -S --needed --noconfirm ntpd
 sudo  systemctl enable ntp
