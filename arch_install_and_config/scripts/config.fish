@@ -1,17 +1,12 @@
 #!/bin/fish
 
-# copy `pacman.conf` to `/ect`
-cp mirrorlist /etc/pacman.d/mirrorlist
-
-# copy `pacman.conf` to `/ect`
-cp pacman.conf /etc/pacman.conf
-
-# refresh the new mirrors and install some important packages
-sudo pacman -Syy 
-sudo pacman -S --needed --noconfirm wget git openssh fish
+# install some important packages
+sudo pacman -S --needed --noconfirm wget git openssh
 
 # create the new user
+reset
 set usrnm 'kevin'
+
 echo 'Please enter the password for kevin:'
 read usrpasswd
 
@@ -48,11 +43,6 @@ pacman -S --needed --noconfirm nmap
 pacman -S --needed --noconfirm ettercap
 pacman -S --needed --noconfirm aircrack-ng
 
-# install and enable ntpd
-pacman -S --needed --noconfirm ntpd
-sudo  systemctl enable ntp
-sudo  systemctl start ntpd
-
 # install and enable Network Manager
 pacman -S --needed --noconfirm networkmanager
 systemctl enable NetworkManager
@@ -62,11 +52,9 @@ systemctl start NetworkManager
 echo '72.52.9.107 privateinternetaccess.com' >> /etc/hosts
 
 # change, lock the DNS and restart Network Manager
-echo "
-# PIA servers
+echo "# PIA servers
 nameserver 209.222.18.222
-nameserver 209.222.18.218
-" > /etc/resolv.conf
+nameserver 209.222.18.218" > /etc/resolv.conf
 
 chattr +i /etc/resolv.conf
 systemctl restart NetworkManager
@@ -98,56 +86,9 @@ wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyri
 chmod 755 /usr/bin/lyrics_search
 
 
-# create `continue.fish`
-echo "
-#!/usr/bin/fish
-
-# exit if the user is 'root'
-if test \$USER = root
-    echo 'Do not run this script as root'
-    exit
-end
-
-
-# install PIA
-sudo pacman -S --needed --noconfirm openvpn
-
-cd ~/private/programs/private-internet-access-vpn
-makepkg -sricC --noconfirm
-
-sudo vi /etc/private-internet-access/login.conf
-sudo chmod 0600 /etc/private-internet-access/login.conf
-sudo chown root:root /etc/private-internet-access/login.conf
-sudo pia -a
-sudo systemctl restart NetworkManager
-
-# enable and run PIA as a service
-sudo systemctl enable openvpn@Singapore.service
-sudo systemctl start openvpn@Singapore.service
-
-# install Google Chrome
-cd /tmp
-wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/google-chrome.tar.gz'
-tar xzf google-chrome.tar.gz
-rm google-chrome.tar.gz
-
-cd /tmp/google-chrome 
-makepkg -sricC --noconfirm
-cd /tmp 
-
-rm -rf google-chrome
-
-# copy chromedriver to PATH
-sudo cp ~/private/google_chrome/chromedriver /usr/bin/chromedriver 
-sudo chmod 755 /usr/bin/chromedriver 
-sudo chown root:root /usr/bin/chromedriver 
-
-# config vim for root
-sudo cp ~/.vimrc /root
-sudo cp -R ~/.vim /root
-sudo chown -R root:root /root/.vim
-" > '/home/kevin/continue.fish'
-chmod 755 '/home/kevin/continue.fish' 
+# create `continue_config.fish`
+cp continue_config.fish /home/kevin/continue_config.fish
+chmod 755 '/home/kevin/continue_config.fish' 
 
 echo "'Please logout and login as 'kevin', and run the below command:'
-fish ~/continue.fish'"
+fish ~/continue_config.fish'"
