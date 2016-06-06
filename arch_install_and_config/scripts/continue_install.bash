@@ -1,4 +1,4 @@
-echo "#!/bin/bash
+#!/bin/bash
 
 # set the locale (system language)
 echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
@@ -24,7 +24,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 echo 'Arch' > /etc/hostname
 
 # set the root password
+reset
 passwd
-
-# exit `chroot`
-exit" > /mnt/tmp/continue.sh
