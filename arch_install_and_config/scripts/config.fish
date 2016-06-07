@@ -36,6 +36,8 @@ pacman -S --needed --noconfirm nodejs
 pacman -S --needed --noconfirm phantomjs
 pacman -S --needed --noconfirm pavucontrol
 pacman -S --needed --noconfirm simplescreenrecorder
+pacman -S --needed --noconfirm progress
+pacman -S --needed --noconfirm btrfs-progs
 pacman -S --needed --noconfirm vim-python3 bpython python-pip
 
 pacman -S --needed --noconfirm mdk3
