@@ -15,3 +15,6 @@ cp ../pacman/pacman.conf /etc/pacman.conf
 
 # refresh the new mirrors
 sudo pacman -Syy 
+
+# install fish
+sudo pacman -S --needed --noconfirm fish
