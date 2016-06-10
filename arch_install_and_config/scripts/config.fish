@@ -3,7 +3,16 @@
 # install some important packages
 sudo pacman -S --needed --noconfirm wget git openssh
 
-# create the new user
+
+# change the locale when login
+echo '
+
+if status --is-login
+    export LANG=en_US.UTF-8
+end' >> /etc/fish/config.fish
+
+
+# create a new user
 reset
 set usrnm 'kevin'
 
@@ -13,9 +22,10 @@ read usrpasswd
 useradd -m -G wheel -s /usr/bin/fish $usrnm
 echo "$usrnm:$usrpasswd" | chpasswd
 
-# add the new user to `sudoers` list
+# add the new user to the `sudoers` list
 sed -i "73a $usrnm ALL=(ALL) ALL" /etc/sudoers
 clear
+
 
 # install font and desktop
 pacman -S --needed --noconfirm wqy-microhei
@@ -50,6 +60,7 @@ pacman -S --needed --noconfirm networkmanager
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
+
 # change the hosts
 echo '72.52.9.107 privateinternetaccess.com' >> /etc/hosts
 
@@ -61,6 +72,7 @@ nameserver 209.222.18.218" > /etc/resolv.conf
 chattr +i /etc/resolv.conf
 systemctl restart NetworkManager
 
+
 # install some python packages
 pip install --upgrade pip
 pip install --upgrade Flask
@@ -69,11 +81,13 @@ pip install --upgrade selenium
 pip install --upgrade beautifulsoup4
 pip install --upgrade pip-autoremove
 
+
 # download some fonts of powerline for vim-airline
 wget 'https://raw.githubusercontent.com/powerline/powerline/develop/font/10-powerline-symbols.conf' -O /usr/share/fonts/OTF/10-powerline-symbols.conf
 wget 'https://raw.githubusercontent.com/powerline/powerline/develop/font/PowerlineSymbols.otf' -O /usr/share/fonts/OTF/PowerlineSymbols.otf
 
 cp /usr/share/fonts/OTF/10-powerline-symbols.conf /etc/fonts/conf.d/10-powerline-symbols.conf
+
 
 # install tedit
 wget 'https://raw.githubusercontent.com/K-Guan/tedit/master/tedit' -O /usr/bin/tedit
@@ -88,7 +102,7 @@ wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyri
 chmod 755 /usr/bin/lyrics_search
 
 
-# create `continue_config.fish`
+# copy `continue_config.fish` to the new user's home folder
 cp continue_config.fish /home/kevin/continue_config.fish
 chmod 755 '/home/kevin/continue_config.fish' 
 

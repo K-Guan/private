@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 # exit if the user is 'root'
-if test \$USER = root
+if test $USER = root
     echo 'Do not run this script as root'
     exit
 end
@@ -14,9 +14,7 @@ cd ~/private/programs/private-internet-access-vpn
 makepkg -sricC --noconfirm
 
 reset
-echo 'Now you have to create `/etc/private-internet-access/login.conf`'
-echo
-echo
+echo -e 'Now you have to create `/etc/private-internet-access/login.conf` yourself\n\n'
 fish
 
 sudo chmod 0600 /etc/private-internet-access/login.conf
@@ -24,10 +22,12 @@ sudo chown root:root /etc/private-internet-access/login.conf
 sudo pia -a
 sudo systemctl restart NetworkManager
 
+
 # enable and run PIA as a service
 sudo systemctl enable openvpn@Singapore.service
 sudo systemctl start openvpn@Singapore.service
 sleep 10
+
 
 # install Google Chrome
 cd /tmp
@@ -41,12 +41,18 @@ cd /tmp
 
 rm -rf google-chrome
 
+
 # copy chromedriver to PATH
 sudo cp ~/private/google_chrome/chromedriver /usr/bin/chromedriver 
-sudo chmod 755 /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
+
+
+# make `fish` as the default shell
+reset
+chsh -s /usr/bin/fish
+
 
 # config vim for root
 sudo cp ~/.vimrc /root
 sudo cp -R ~/.vim /root
-sudo chown -R root:root /root/.vim
+sudo chown -R root:root /root/.vim /root/.vimrc

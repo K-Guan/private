@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # connect to the Internet
-wifi-menu
+if ip link | grep -P '^\d: wlp'; then
+    wifi-menu
+else
+    dhcpcd
+fi
 
 # copy `mirrorlist` to `/ect/pacman.d`
 cp ../pacman/mirrorlist /etc/pacman.d/mirrorlist

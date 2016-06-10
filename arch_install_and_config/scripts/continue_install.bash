@@ -15,13 +15,25 @@ ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 hwclock --systohc --utc
 
+
+# install wifi-menu if found a wireless card
+if ip link | grep -P '^\d: wlp'; then
+    sudo pacman -S wifi-menu --needed --noconfirm
+else 
+    dhcpcd
+fi   
+
+
 # install `grub` as the boot loader
 pacman -S grub os-prober --needed --noconfirm
+
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
+
 # set the host name
 echo 'Arch' > /etc/hostname
+
 
 # set the root password
 reset
