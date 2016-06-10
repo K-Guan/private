@@ -1,4 +1,4 @@
-#!/usr/bin/fish
+#!/usr/bin/bash
 
 # format the disk partition of the new system as `btrfs`
 mkfs.btrfs -f /dev/sda
