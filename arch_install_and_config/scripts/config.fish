@@ -14,17 +14,20 @@ end' >> /etc/fish/config.fish
 
 # create a new user
 reset
-set usrnm 'kevin'
+echo "Please enter the username of your user:"
 
-echo 'Please enter the password for kevin:'
-read usrpasswd
+read username
+set username (echo {$username} | tr '[A-Z]' '[a-z]')
 
-useradd -m -G wheel -s /usr/bin/fish $usrnm
-echo "$usrnm:$usrpasswd" | chpasswd
+echo "Please enter the password for {$username}:"
+read userpassword
+
+useradd -m -G wheel -s /usr/bin/fish {$username}
+echo "{$username}:{$userpassword}" | chpasswd
 
 # add the new user to the `sudoers` list
-sed -i "73a $usrnm ALL=(ALL) ALL" /etc/sudoers
-clear
+sed -i "73a {$username} ALL=(ALL) ALL" /etc/sudoers
+reset
 
 
 # install font and desktop
@@ -103,8 +106,8 @@ chmod 755 /usr/bin/lyrics_search
 
 
 # copy `continue_config.fish` to the new user's home folder
-cp continue_config.fish /home/kevin/continue_config.fish
-chmod 755 '/home/kevin/continue_config.fish' 
+cp continue_config.fish /home/{$username}/continue_config.fish
+chmod 755 "/home/{$username}/continue_config.fish"
 
-echo "'Please logout and login as 'kevin', and run the below command:'
+echo "'Please logout and login as '{$username}', and run the below command:'
 fish ~/continue_config.fish'"

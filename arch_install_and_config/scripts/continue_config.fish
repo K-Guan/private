@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 # exit if the user is 'root'
-if test $USER = root
+if test {$USER} = root
     echo 'Do not run this script as root'
     exit
 end
