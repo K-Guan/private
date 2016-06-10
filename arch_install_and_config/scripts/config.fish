@@ -105,9 +105,5 @@ wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyri
 chmod 755 /usr/bin/lyrics_search
 
 
-# copy `continue_config.fish` to the new user's home folder
-cp continue_config.fish /home/{$username}/continue_config.fish
-chmod 755 "/home/{$username}/continue_config.fish"
-
-echo "'Please logout and login as '{$username}', and run the below command:'
-fish ~/continue_config.fish'"
+echo "Please logout and then login as '{$username}', and copy your HOME folder to `/home/{$username}`.
+After that, run `fish ~/private/arch_install_and_config/scripts/continue_config.fish`."
