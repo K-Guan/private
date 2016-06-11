@@ -13,7 +13,7 @@ pacstrap -i /mnt base base-devel
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # create `continue_install.bash`
-cp continue_install.bash /mnt/tmp/continue_install.bash
+cp continue_install.bash /mnt/continue_install.bash
 chmod 755 /mnt/continue_install.bash
 
 # run 'continue_install.bash' via `arch-chroot`
