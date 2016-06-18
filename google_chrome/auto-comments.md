@@ -31,14 +31,11 @@ While this link may answer the question, it is better to include the essential p
 ###[A] This answer should be an edit to the question
 Please use the edit link on your question to add additional information. The Post Answer button should be used only for complete answers to the question.
 
-###[A] This is a code-only answer
-[Stack Overflow](//$SITEURL$) accepts **code-only answer** like this, but it isn't *very* help for others. Please [edit] your answer and explain *How does your code work*. Sometimes, also *Why doesn't OP's code work*.
-
 ###[A] This is a code-only answer but it maybe should be an edit to the question
 Is this an answer to your question? If so, please explain *how does this solve the problem*. If you just want to add additional information to you question, you should edit it instead of post an answer.
 
 ###[A] This answer should be a dupe vote/flag
-If you think that the question you linked and this question are same, please [flag](//$SITEURL$/privileges/flag-posts) or [vote to close](//$SITEURL$/privileges/close-questions) this question as dupe to the one you linked instead of post an answer.
+If you think this question is duplicate another one, please [flag](//$SITEURL$/privileges/flag-posts) or [vote to close](//$SITEURL$/privileges/close-questions) to close it as a duplicate instead of posting a new answer.
 
 ###[A] This answer should be a dupe vote/flag (can't flag)
 If you think that the question you linked and this question are same, once you have sufficient [reputation](//$SITEURL$/help/whats-reputation), you will be able to [flag](//$SITEURL$/privileges/flag-posts) or [vote to close](//$SITEURL$/privileges/close-questions) this question as dupe the question you linked instead of post an answer.
