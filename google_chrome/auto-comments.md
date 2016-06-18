@@ -37,8 +37,5 @@ Is this an answer to your question? If so, please explain *how does this solve t
 ###[A] This answer should be a dupe vote/flag
 If you think this question is duplicate another one, please [flag](//$SITEURL$/privileges/flag-posts) or [vote to close](//$SITEURL$/privileges/close-questions) to close it as a duplicate instead of posting a new answer.
 
-###[A] This answer should be a dupe vote/flag (can't flag)
-If you think that the question you linked and this question are same, once you have sufficient [reputation](//$SITEURL$/help/whats-reputation), you will be able to [flag](//$SITEURL$/privileges/flag-posts) or [vote to close](//$SITEURL$/privileges/close-questions) this question as dupe the question you linked instead of post an answer.
-
 ###[A] This is just a garbage
 This is a garbage post by a 1-rep unregistered user without meaningful contributions. Flag as "Rude or abusive" to destroy it quickly without poorly seeding the spam detector (see [this Meta answer](http://meta.stackoverflow.com/a/317611/4174897)).
