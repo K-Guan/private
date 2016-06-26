@@ -105,6 +105,9 @@ chmod 755 /usr/bin/realpath
 wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyrics_search' -O /usr/bin/lyrics_search
 chmod 755 /usr/bin/lyrics_search
 
+# disable login as root
+chsh -s /usr/bin/nologin
+
 
 echo "Please logout and then login as '{$username}', and copy your HOME folder to `/home/{$username}`.
 After that, run `fish ~/private/arch_install_and_config/scripts/continue_config.fish`."
