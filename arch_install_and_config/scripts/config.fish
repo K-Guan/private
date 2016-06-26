@@ -105,8 +105,8 @@ chmod 755 /usr/bin/realpath
 wget 'https://raw.githubusercontent.com/K-Guan/Learn/master/Python/programs/lyrics_search' -O /usr/bin/lyrics_search
 chmod 755 /usr/bin/lyrics_search
 
-# disable login as root
-chsh -s /usr/bin/nologin
+# change the shell to fish
+chsh -s /usr/bin/fish
 
 # remove and lock the password of root
 passwd -dl root
