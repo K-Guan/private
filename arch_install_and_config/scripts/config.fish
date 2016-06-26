@@ -108,6 +108,9 @@ chmod 755 /usr/bin/lyrics_search
 # disable login as root
 chsh -s /usr/bin/nologin
 
+# remove and lock the password of root
+passwd -dl root
+
 
 echo "Please logout and then login as '{$username}', and copy your HOME folder to `/home/{$username}`.
 After that, run `fish ~/private/arch_install_and_config/scripts/continue_config.fish`."
