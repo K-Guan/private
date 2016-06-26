@@ -7,6 +7,20 @@ if test {$USER} = root
 end
 
 
+# signature for a finger
+fprintd-enroll
+
+# edit 'system-local-login' to enable "fingreprint + password" login
+echo '#%PAM-1.0
+ 
+auth      required  pam_fprintd.so                                                                                                          
+auth      include   system-login
+ 
+account   include   system-login
+password  include   system-login
+session   include   system-login' > /etc/pam.d/system-local-login
+                                                             
+
 # install PIA
 sudo pacman -S --needed --noconfirm openvpn
 

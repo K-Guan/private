@@ -1,7 +1,7 @@
 #!/bin/fish
 
 # install some important packages
-sudo pacman -S --needed --noconfirm wget git openssh
+pacman -S --needed --noconfirm wget git openssh
 
 
 # change the locale when login
@@ -52,6 +52,7 @@ pacman -S --needed --noconfirm simplescreenrecorder
 pacman -S --needed --noconfirm progress
 pacman -S --needed --noconfirm btrfs-progs
 pacman -S --needed --noconfirm vim-python3 bpython python-pip
+pacman -S --needed --noconfirm fprint imagemagick
 
 pacman -S --needed --noconfirm mdk3
 pacman -S --needed --noconfirm nmap
