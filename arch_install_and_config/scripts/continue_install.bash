@@ -17,8 +17,8 @@ hwclock --systohc --utc
 
 
 # install wifi-menu if found a wireless card
-if ip link | grep -P '^\d: wlp'; then
-    sudo pacman -S wifi-menu --needed --noconfirm
+if ip link | grep -qP '^\d: wlp'; then
+    sudo pacman -S wifi-menu dialog --needed --noconfirm
 else 
     dhcpcd
 fi   

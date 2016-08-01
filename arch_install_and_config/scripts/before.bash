@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # connect to the Internet
-if ip link | grep -P '^\d: wlp'; then
+if ip link | grep -qP '^\d: wlp'; then
     wifi-menu
 else
     dhcpcd
@@ -16,5 +16,5 @@ cp ../pacman/pacman.conf /etc/pacman.conf
 # refresh the new mirrors
 sudo pacman -Syy 
 
-# install fish
-sudo pacman -S --needed --noconfirm fish
+# install fish shell
+sudo pacman -S fish --noconfirm --needed

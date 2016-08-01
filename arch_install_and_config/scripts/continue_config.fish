@@ -1,7 +1,7 @@
 #!/usr/bin/fish
 
 # exit if the user is 'root'
-if test {$USER} = root
+if test $user = root
     echo 'Do not run this script as root'
     exit
 end
@@ -39,7 +39,7 @@ sudo systemctl restart NetworkManager
 
 # enable and run PIA as a service
 sudo systemctl enable openvpn@Singapore.service
-sudo systemctl start openvpn@Singapore.service
+###### TODO:REMOVE_THIS sudo systemctl start openvpn@Singapore.service
 sleep 10
 
 
@@ -59,11 +59,6 @@ rm -rf google-chrome
 # copy chromedriver to PATH
 sudo cp ~/private/google_chrome/chromedriver /usr/bin/chromedriver 
 sudo chown root:root /usr/bin/chromedriver 
-
-
-# make `fish` as the default shell
-reset
-chsh -s /usr/bin/fish
 
 
 # config vim for root

@@ -1,10 +1,7 @@
 #!/usr/bin/bash
 
-# format the disk partition of the new system as `btrfs`
-mkfs.btrfs -f /dev/sda
-
 # mount the new system to `/mnt`
-mount /dev/sda /mnt
+mount /dev/sda5 /mnt
 
 # install the basic packages for the new system
 pacstrap -i /mnt base base-devel

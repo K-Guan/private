@@ -17,16 +17,16 @@ reset
 echo "Please enter the username of your user:"
 
 read username
-set username (echo {$username} | tr '[A-Z]' '[a-z]')
+set username (echo $username | tr '[A-Z]' '[a-z]')
 
-echo "Please enter the password for {$username}:"
+echo "Please enter the password for $username:"
 read userpassword
 
-useradd -m -G wheel -s /usr/bin/fish {$username}
-echo "{$username}:{$userpassword}" | chpasswd
+useradd -m -G wheel -s /usr/bin/fish $username
+echo "$username:$userpassword" | chpasswd
 
 # add the new user to the `sudoers` list
-sed -i "73a {$username} ALL=(ALL) ALL" /etc/sudoers
+sed -i "73a $username ALL=(ALL) ALL" /etc/sudoers
 reset
 
 
@@ -112,5 +112,5 @@ chsh -s /usr/bin/fish
 passwd -dl root
 
 
-echo "Please logout and then login as '{$username}', and copy your HOME folder to `/home/{$username}`.
+echo "Please logout and then login as '$username', and copy your HOME folder to `/home/$username}`.
 After that, run `fish ~/private/arch_install_and_config/scripts/continue_config.fish`."
